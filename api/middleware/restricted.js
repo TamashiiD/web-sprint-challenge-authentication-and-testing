@@ -9,25 +9,18 @@ module.exports = (req, res, next) => {
   }
 
   try {
-    const decoded = jwt.verify(token);
-    if (decoded){
+   
+    if (token){
       next()
     }
-    // You can optionally attach the decoded user information to the request for further processing
-    req.user = decoded;
+   
   } catch (error) {
     return res.status(401).json({ message: 'token invalid' });
   }
 
-  // Call next to proceed to the next middleware or route handler
 }
 
-  // if (){
-  //   next()
-  // }
-  // else{
-  //   next({status: 401, message: "token invalid"})
-  // }
+
   //   /*
   //     IMPLEMENT
 
