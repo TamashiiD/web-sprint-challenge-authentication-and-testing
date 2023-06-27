@@ -28,7 +28,7 @@ module.exports = (req, res, next) => {
 function isValidToken(token) {
   try {
     // Verify and decode the token
-    const decoded = jwt.verify(token, "monkey");
+    const decoded = jwt.verify(token, token);
 
     // Perform additional checks or validations
     // For example, you could check the token expiration
