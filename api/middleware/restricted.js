@@ -1,16 +1,26 @@
+const jwt = require('jsonwebtoken');
 
 module.exports = (req, res, next) => {
 
-  if(req.session){
-    next()
+  const token = req.headers.authorization;
+
+  if (!token) {
+    return res.status(401).json({ message: 'token required' });
   }
-  else{
-    res.status(401).json({
-      message: "token invalid"
-    })
+
+  try {
+    const decoded = jwt.verify(token, 'your_secret_key');
+
+    // You can optionally attach the decoded user information to the request for further processing
+    req.user = decoded;
+
+    // Call next to proceed to the next middleware or route handler
+    next();
+  } catch (error) {
+    return res.status(401).json({ message: 'token invalid' });
   }
-console.log(req.session)
-  next()
+}
+
   // if (){
   //   next()
   // }
@@ -28,4 +38,4 @@ console.log(req.session)
   //     3- On invalid or expired token in the Authorization header,
   //       the response body should include a string exactly as follows: "token invalid".
   //   */
-};
+
