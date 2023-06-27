@@ -10,7 +10,9 @@ module.exports = (req, res, next) => {
 
   try {
     const decoded = jwt.verify(token, 'your_secret_key');
-
+    if (decoded){
+      next()
+    }
     // You can optionally attach the decoded user information to the request for further processing
     req.user = decoded;
   } catch (error) {
@@ -18,7 +20,6 @@ module.exports = (req, res, next) => {
   }
 
   // Call next to proceed to the next middleware or route handler
-  next();
 }
 
   // if (){
