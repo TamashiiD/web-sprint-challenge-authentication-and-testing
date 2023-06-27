@@ -13,6 +13,9 @@ module.exports = (req, res, next) => {
     if (token){
       next()
     }
+    else{
+      return res.status(401).json({ message: 'token invalid' })
+    }
    
   } catch (error) {
     return res.status(401).json({ message: 'token invalid' });
