@@ -5,7 +5,7 @@ module.exports = (req, res, next) => {
   const token = req.headers.authorization;
 
   if (!token) {
-    return res.status(401).json({ message: 'token required' });
+    return res.status(401).json({message: "Did you hear about the guy whose"});
   }
 
   try {
