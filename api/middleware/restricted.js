@@ -10,8 +10,8 @@ module.exports = (req, res, next) => {
 
   try {
    
-    if (token){
-      next()
+    if (isValidToken(token)) {
+      next();
     }
     else{
       return res.status(401).json({ message: 'token invalid' })
@@ -21,6 +21,30 @@ module.exports = (req, res, next) => {
     return res.status(401).json({ message: 'token invalid' });
   }
 
+}
+
+
+
+function isValidToken(token) {
+  try {
+    // Verify and decode the token
+    const decoded = jwt.verify(token, "keep it secret");
+
+    // Perform additional checks or validations
+    // For example, you could check the token expiration
+    const currentTimestamp = Math.floor(Date.now() / 1000);
+    if (decoded.exp < currentTimestamp) {
+      // Token is expired
+      return false;
+    }
+
+    // Return true if the token is considered valid
+    return true;
+  } 
+  catch (error) {
+    // Return false if there's any error during token verification
+    return false;
+  }
 }
 
 
