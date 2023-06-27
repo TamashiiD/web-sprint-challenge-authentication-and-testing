@@ -24,7 +24,7 @@ router.post('/register', async (req, res) => {
 
   User.add(user)
     .then(saved => {
-      res.status(201).json(saved.id)
+      res.status(201).json(saved.password)
     })
     .catch(err => {
       res.status(500).json(err)
